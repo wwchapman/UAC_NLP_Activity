@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+            <html>
+            
+            <head>
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+                <title>Brat Embedding x.html</title>
+                <link rel="stylesheet" type="text/css" href="css/style-vis.css">
+                <script type="text/javascript" src="js/head.js"></script>
+                <script type="text/javascript">
+              function resizeIframe(obj) {
+                obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+              }
+            </script>
+            </head>
+            
+            <body>
+            
+            <!-- load all the libraries upfront, which takes forever. -->
+            <script type="text/javascript" src="js/brat_loader.js"></script>
+            
+            <script type="text/javascript">
+            
+            var collData = {
+                entity_types: [ {
+                        type   : 'Target',
+                        labels : ['Target', 'Tar'],
+                        // Blue is a nice colour for a person?
+                        bgColor: '#7fa2ff',
+                        // Use a slightly darker version of the bgColor for the border
+                        borderColor: 'darken'
+                },
+                 {
+                        type   : 'Modifier',
+                        labels : ['Modifier', 'Mod'],
+                        // Blue is a nice colour for a person?
+                        bgColor: 'lightgreen',
+                        // Use a slightly darker version of the bgColor for the border
+                        borderColor: 'darken'
+                },
+                 {
+                        type   : 'Termination',
+                        labels : ['Termination', 'Termi'],
+                        // Blue is a nice colour for a person?
+                        bgColor: 'orange',
+                        // Use a slightly darker version of the bgColor for the border
+                        borderColor: 'darken'
+                }]
+            };
+            
+            collData['relation_types'] = [ {
+                type     : 'indication',
+                labels   : ['indication', 'ind'],
+                color    : '#FF8C00',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'indication_t',
+                labels   : ['indication', 'ind'],
+                color    : '#00BFFF',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'ambivalent_existence',
+                labels   : ['ambivalent_existence', 'ae'],
+                color    : '#00CED1',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'ambivalent_existence_t',
+                labels   : ['ambivalent_existence', 'ae'],
+                color    : '#6B8E23',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'future',
+                labels   : ['future', 'fut'],
+                color    : '#008080',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'future_t',
+                labels   : ['future', 'fut'],
+                color    : '#663399',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'conj',
+                labels   : ['conj', 'con'],
+                color    : '#66CDAA',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'conj_t',
+                labels   : ['conj', 'con'],
+                color    : '#006400',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'probable_negated_existence',
+                labels   : ['probable_negated_existence', 'pne'],
+                color    : '#BDB76B',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'probable_negated_existence_t',
+                labels   : ['probable_negated_existence', 'pne'],
+                color    : '#DC143C',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'probable_existence',
+                labels   : ['probable_existence', 'pe'],
+                color    : '#DA70D6',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'probable_existence_t',
+                labels   : ['probable_existence', 'pe'],
+                color    : '#00FF00',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'hypothetical',
+                labels   : ['hypothetical', 'hyp'],
+                color    : '#C71585',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'hypothetical_t',
+                labels   : ['hypothetical', 'hyp'],
+                color    : '#228B22',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'historical',
+                labels   : ['historical', 'his'],
+                color    : '#DAA520',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'historical_t',
+                labels   : ['historical', 'his'],
+                color    : '#EE82EE',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'pseudoneg',
+                labels   : ['pseudoneg', 'pse'],
+                color    : '#0000CD',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'pseudoneg_t',
+                labels   : ['pseudoneg', 'pse'],
+                color    : '#8B4513',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'definite_negated_existence',
+                labels   : ['definite_negated_existence', 'dne'],
+                color    : '#E9967A',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'definite_negated_existence_t',
+                labels   : ['definite_negated_existence', 'dne'],
+                color    : '#808000',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'acute',
+                labels   : ['acute', 'acu'],
+                color    : '#FFA500',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'acute_t',
+                labels   : ['acute', 'acu'],
+                color    : '#F08080',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            },{
+                type     : 'definite_existence',
+                labels   : ['definite_existence', 'de'],
+                color    : '#000000',
+                args     : [
+                    {role: 'Modifier', targets: ['Modifier'] },
+                    {role: 'Target',  targets: ['Target'] } 
+                ]
+            },{
+                type     : 'definite_existence_t',
+                labels   : ['definite_existence', 'de'],
+                color    : '#708090',
+                args     : [
+                    {role: 'Termination', targets: ['Termination'] },
+                    {role: 'Modifier',  targets: ['Modifier'] } 
+                ]
+            }];
+            
+            var docData={"text": "probable arthritis but no pneumonia", "entities": [["T0", "Modifier", [[0, 8]]], ["T1", "Modifier", [[23, 25]]], ["T2", "Target", [[9, 18]]], ["T3", "Termination", [[19, 22]]], ["T4", "Target", [[26, 35]]]], "relations": [["R0", "probable_existence", [["Modifier", "T0"], ["Target", "T2"]]], ["R1", "definite_negated_existence", [["Modifier", "T1"], ["Target", "T4"]]], ["R2", "conj_t", [["Termination", "T3"], ["Modifier", "T0"]]]]}
+            
+            </script>
+            <p>Rendering: x.html ...</p>
+            <div id="embedding-entity-example"></div>
+            <script type="text/javascript">
+                head.ready(function() {
+                    Util.embed('embedding-entity-example', $.extend({}, collData),
+                            $.extend({}, docData), webFontURLs);
+                });
+            </script>
+            
+            </body>
+            </html>
+            
